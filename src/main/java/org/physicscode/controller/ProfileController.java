@@ -7,6 +7,7 @@ import org.physicscode.domain.auth.EBoostAuthenticationUser;
 import org.physicscode.dto.pojo.output.CustomerUserProfileDTO;
 import org.physicscode.dto.pojo.output.FreelancerUserProfileDTO;
 import org.physicscode.service.ProfileService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class ProfileController {
 
     @ApiOperation(value = "Retrieves profile for freelancers",
             authorizations = @Authorization(value = "JWT"))
-    @GetMapping(path = "/freelancer")
+    @GetMapping(path = "/freelancer", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<FreelancerUserProfileDTO>> retrieveUserProfileFreelance(@ApiIgnore  @AuthenticationPrincipal EBoostAuthenticationUser eBoostAuthenticationUser) {
 
         return profileService.retrieveFreelancerProfile(eBoostAuthenticationUser.getUserId())
@@ -33,7 +34,7 @@ public class ProfileController {
 
     @ApiOperation(value = "Retrieves profile for customers",
             authorizations = @Authorization(value = "JWT"))
-    @GetMapping(path = "/customer")
+    @GetMapping(path = "/customer", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<CustomerUserProfileDTO>> retrieveUserProfileCustomer(@ApiIgnore @AuthenticationPrincipal EBoostAuthenticationUser eBoostAuthenticationUser) {
 
         return profileService.retrieveCustomerProfile(eBoostAuthenticationUser.getUserId())

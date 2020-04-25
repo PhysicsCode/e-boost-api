@@ -8,3 +8,15 @@ info:
 spring:
   application:
     name: e-boost-api
+
+management:
+  health:
+    diskspace:
+      enabled: false
+  endpoints:
+    web:
+      base-path: /system
+      exposure:
+        include: info,health,loggers
+      path-mapping:
+        health: /simple

@@ -6,6 +6,7 @@ import org.physicscode.domain.auth.EBoostAuthenticationUser;
 import org.physicscode.domain.repository.EboostAuthenticationUserRepository;
 import org.physicscode.utils.SecurityUtils;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
@@ -16,7 +17,6 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 @RequiredArgsConstructor
-@Component
 public class JWTAuthenticationWebFilter implements WebFilter {
 
     private static final EBoostAuthenticationUser ANONYMOUS_AUTHENTICATION_TOKEN =  EBoostAuthenticationUser.buildAnonymous();
@@ -26,6 +26,14 @@ public class JWTAuthenticationWebFilter implements WebFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+
+        return ReactiveSecurityContextHolder.getContext()
+                .map(SecurityContext::getAuthentication)
+                .switchIfEmpty(Mono.just(new EBoostAuthenticationUser()))
+                .flatMap((authentication) -> authentication.isAuthenticated() ? chain.filter(exchange) : this.authenticateUserFollowingFilterChain(exchange, chain));
+    }
+
+    public Mono<Void> authenticateUserFollowingFilterChain(ServerWebExchange exchange, WebFilterChain chain) {
 
         AtomicReference<String> userToken = new AtomicReference<>("");
 
