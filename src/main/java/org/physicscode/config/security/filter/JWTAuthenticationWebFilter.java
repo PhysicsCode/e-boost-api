@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @RequiredArgsConstructor
 public class JWTAuthenticationWebFilter implements WebFilter {
 
-    private static final EBoostAuthenticationUser ANONYMOUS_AUTHENTICATION_TOKEN =  EBoostAuthenticationUser.buildAnonymous();
+    private static final EBoostAuthenticationUser ANONYMOUS_AUTHENTICATION_TOKEN = EBoostAuthenticationUser.buildAnonymous();
 
     private final SecurityUtils securityUtils;
     private final EboostAuthenticationUserRepository eboostAuthenticationUserRepository;
@@ -30,7 +30,7 @@ public class JWTAuthenticationWebFilter implements WebFilter {
         return ReactiveSecurityContextHolder.getContext()
                 .map(SecurityContext::getAuthentication)
                 .switchIfEmpty(Mono.just(new EBoostAuthenticationUser()))
-                .flatMap((authentication) -> authentication.isAuthenticated() ? chain.filter(exchange) : this.authenticateUserFollowingFilterChain(exchange, chain));
+                .flatMap(authentication -> authentication.isAuthenticated() ? chain.filter(exchange) : this.authenticateUserFollowingFilterChain(exchange, chain));
     }
 
     public Mono<Void> authenticateUserFollowingFilterChain(ServerWebExchange exchange, WebFilterChain chain) {
@@ -39,7 +39,7 @@ public class JWTAuthenticationWebFilter implements WebFilter {
 
         Optional.ofNullable(exchange.getRequest().getHeaders().get("Authorization"))
                 .map(headerList -> headerList.get(0))
-                .ifPresent(token -> userToken.set(token.replace("Bearer: ", "")));
+                .ifPresent(token -> userToken.set(token.replace("Bearer ", "")));
 
         try {
             String userId = JWT.require(securityUtils.obtainAlgorithm())
@@ -53,7 +53,10 @@ public class JWTAuthenticationWebFilter implements WebFilter {
 
             return eboostAuthenticationUserRepository.findByUserId(userId)
                     .defaultIfEmpty(ANONYMOUS_AUTHENTICATION_TOKEN)
-                    .flatMap(user -> chain.filter(exchange).subscriberContext(ReactiveSecurityContextHolder.withAuthentication(user))
+                    .flatMap(user -> {
+                                user.setPrincipal(user);
+                                return chain.filter(exchange).subscriberContext(ReactiveSecurityContextHolder.withAuthentication(user));
+                            }
                     );
 
         } catch (Exception e) {

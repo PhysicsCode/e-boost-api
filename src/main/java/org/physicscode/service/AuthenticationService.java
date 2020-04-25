@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.physicscode.domain.entity.CustomerUser;
 import org.physicscode.domain.auth.EBoostAuthenticationUser;
 import org.physicscode.domain.entity.FreelancerUser;
-import org.physicscode.domain.auth.UserType;
+import org.physicscode.constants.UserType;
 import org.physicscode.domain.repository.CustomerRepository;
 import org.physicscode.domain.repository.EboostAuthenticationUserRepository;
 import org.physicscode.domain.repository.FreelancerRepository;
@@ -111,6 +111,7 @@ public class AuthenticationService {
         user.setUsername(registerDTO.getUsername());
         user.setAuthenticated(true);
         user.setUserType(userType);
+        user.setPrincipal(user);
 
         return user;
     }

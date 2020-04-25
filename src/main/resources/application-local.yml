@@ -6,3 +6,8 @@ spring:
 auth:
   signing-secret: some-secret
   hashing-secret: another-secret
+
+assetstore:
+  client:
+    url: https://api.imgbb.com
+    key: 17882156e4373c131697d1ea45da0144

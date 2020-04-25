@@ -1,7 +1,7 @@
 package org.physicscode.dto.pojo.output;
 
 import lombok.Data;
-import org.physicscode.domain.auth.UserType;
+import org.physicscode.constants.UserType;
 
 @Data
 public class LoginFeedbackDTO {

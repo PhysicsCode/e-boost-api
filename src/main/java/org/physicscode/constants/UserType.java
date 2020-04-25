@@ -1,4 +1,4 @@
-package org.physicscode.domain.auth;
+package org.physicscode.constants;
 
 public enum UserType {
 
