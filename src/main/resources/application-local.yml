@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://root:Lolacles147575!@ds213645.mlab.com:13645/heroku_qz628w2j?retryWrites=false
+
+auth:
+  signing-secret: some-secret
+  hashing-secret: another-secret

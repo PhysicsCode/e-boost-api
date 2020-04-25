@@ -1,0 +1,80 @@
+buildscript {
+	ext {
+		springBootVersion = '2.2.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'org.physics.code'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.11
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/milestone" }
+	maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+}
+
+compileJava {
+	options.compilerArgs += ["-parameters", "-Amapstruct.defaultComponentModel=spring"]
+}
+
+
+ext['mockito.version'] = '2.24.5'
+ext['junit-jupiter.version'] = '5.4.0'
+ext['rest-assured.version'] = '4.1.2'
+ext['testContainersVersion'] = '1.11.1'
+ext['mapstructVersion'] = '1.3.0.Final'
+ext['swaggerVersion'] = '3.0.0-SNAPSHOT'
+
+ext {
+	springCloudVersion = 'Greenwich.Release'
+}
+
+dependencies {
+
+	//compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-webflux")
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile("org.springframework.boot:spring-boot-starter-security")
+	compile("org.springframework.integration:spring-integration-webflux")
+	compile("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
+
+
+	compile("io.springfox:springfox-swagger2:${swaggerVersion}")
+	compile("io.springfox:springfox-spring-webflux:${swaggerVersion}")
+	compile("io.springfox:springfox-spring-integration-webflux:${swaggerVersion}")
+	compile("io.springfox:springfox-swagger-ui:${swaggerVersion}")
+	compile("org.springframework.plugin:spring-plugin-core:2.0.0.RELEASE")
+
+
+	compile("org.mapstruct:mapstruct-jdk8:${mapstructVersion}")
+
+	implementation 'com.auth0:java-jwt:3.10.2'
+
+	annotationProcessor ("org.projectlombok:lombok")
+	compileOnly('org.projectlombok:lombok')
+	annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
+
+	//TEST
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+	testCompile("io.projectreactor:reactor-test")
+	testCompile("io.rest-assured:rest-assured")
+	testCompile('org.mockito:mockito-core')
+	testCompile('org.mockito:mockito-junit-jupiter')
+	testImplementation('org.junit.jupiter:junit-jupiter-api')
+	testCompile('org.junit.jupiter:junit-jupiter-params')
+	testRuntime('org.junit.jupiter:junit-jupiter-engine')
+
+	testCompile "org.testcontainers:junit-jupiter:${testContainersVersion}"
+
+}

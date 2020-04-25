@@ -1,0 +1,10 @@
+info:
+  app:
+    name: ${spring.application.name}
+    version: 0.0.1
+    latest-api-spec: v1
+    loaded-profile: ${spring.profiles.active}
+
+spring:
+  application:
+    name: e-boost-api

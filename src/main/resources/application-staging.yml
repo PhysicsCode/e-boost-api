@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+
+auth:
+  signing-secret: some-secret
+  hashing-secret: another-secret
