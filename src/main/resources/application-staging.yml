@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: ${MONGODB_URI}
+      uri: ${MONGODB_URI}?retryWrites=false
 
 auth:
   signing-secret: some-secret
