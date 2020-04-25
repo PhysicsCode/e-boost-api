@@ -49,11 +49,13 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
 
         return http.securityMatcher(
-                pathMatchers("/**")).authorizeExchange()
+                pathMatchers("/profile")).authorizeExchange()
+
+                .pathMatchers("/swagger-ui.html").permitAll()
 
                 .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .pathMatchers(HttpMethod.POST,"/auth/login").permitAll()
-                .pathMatchers(HttpMethod.POST,"/auth/register/**").permitAll()
+                //.pathMatchers(HttpMethod.POST,"/auth/login").permitAll()
+                //.pathMatchers(HttpMethod.POST,"/auth/register/**").permitAll()
 
                 .pathMatchers(HttpMethod.GET, "/profile/customer").hasRole("CUSTOMER")
                 .pathMatchers(HttpMethod.GET, "/profile/freelancer").hasRole("FREELANCER")
