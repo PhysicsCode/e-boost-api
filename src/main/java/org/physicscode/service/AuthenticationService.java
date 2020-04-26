@@ -111,7 +111,7 @@ public class AuthenticationService {
         user.setUsername(registerDTO.getUsername());
         user.setAuthenticated(true);
         user.setUserType(userType);
-        user.setPrincipal(user);
+        //user.setPrincipal(user);
 
         return user;
     }
