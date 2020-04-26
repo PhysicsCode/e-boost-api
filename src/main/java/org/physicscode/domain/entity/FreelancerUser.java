@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document
@@ -37,6 +38,8 @@ public class FreelancerUser {
 
     //Meta
 
-    private List<Recommendation> recommendations;
+    private List<Recommendation> recommendations = new ArrayList<>();
+
+    private Gallery gallery = new Gallery();
 
 }

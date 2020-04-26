@@ -26,7 +26,7 @@ public class ImageService {
             return;
         }
 
-        webClient.post()
+        webClient.get()
                 .uri(url)
                 .retrieve()
                 .toBodilessEntity()

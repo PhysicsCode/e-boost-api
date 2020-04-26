@@ -1,14 +1,18 @@
 package org.physicscode.service;
 
+import io.micrometer.core.instrument.config.MeterFilter;
 import lombok.RequiredArgsConstructor;
 import org.physicscode.constants.PicType;
 import org.physicscode.domain.entity.FreelancerUser;
+import org.physicscode.domain.entity.GalleryPictureHolder;
 import org.physicscode.domain.entity.ImageHolder;
 import org.physicscode.domain.repository.CustomerRepository;
 import org.physicscode.domain.repository.FreelancerRepository;
+import org.physicscode.dto.mapper.GalleryMapper;
 import org.physicscode.dto.mapper.ProfileMapper;
 import org.physicscode.dto.pojo.output.CustomerUserProfileDTO;
 import org.physicscode.dto.pojo.output.FreelancerUserProfileDTO;
+import org.physicscode.dto.pojo.output.GalleryDTO;
 import org.physicscode.dto.pojo.provider.response.ImageBucketResponseDTO;
 import org.physicscode.exception.ErrorCode;
 import org.physicscode.exception.ServiceException;
@@ -81,6 +85,8 @@ public class ProfileService {
                 .doOnNext(o -> imageService.deleteImage(deletionUrl.get()));
     }
 
+
+
     private void setupImage(ImageHolder profileBackPic, ImageBucketResponseDTO imageHolder) {
 
         profileBackPic.setImageUrl(imageHolder.getImageUrl());
@@ -88,6 +94,7 @@ public class ProfileService {
         profileBackPic.setThumbUrl(imageHolder.getThumbImageUrl());
         profileBackPic.setDeletionUrl(imageHolder.getDeleteUrl());
     }
+
 
 
     private void crossFields(FreelancerUser currentEntity, FreelancerUser tentativeEntity) {
@@ -100,5 +107,7 @@ public class ProfileService {
 
         currentEntity.setTags(tentativeEntity.getTags());
     }
+
+
 
 }
