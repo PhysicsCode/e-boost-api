@@ -27,7 +27,7 @@ public class AuthenticationController {
                 .map(ResponseEntity::ok);
     }
 
-    @PostMapping(path = "/register/freelance")
+    @PostMapping(path = "/register/freelancer")
     public Mono<ResponseEntity<LoginFeedbackDTO>> register(@RequestBody EBoostUserFreelanceRegisterDTO eBoostUserFreelanceRegisterDTO) {
 
         return authenticationService.registerFreelancer(eBoostUserFreelanceRegisterDTO)
