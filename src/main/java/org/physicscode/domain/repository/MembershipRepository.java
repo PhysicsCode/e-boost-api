@@ -22,7 +22,7 @@ public class MembershipRepository {
         MembershipEntity membershipEntity2 = new MembershipEntity();
         membershipEntity2.setMembershipId("2");
         membershipEntity2.setDescription("2 Week");
-        membershipEntity2.setPrice(new BigDecimal("15.00"));
+        membershipEntity2.setPrice(new BigDecimal("25.00"));
         MembershipEntity membershipEntity3 = new MembershipEntity();
         membershipEntity3.setMembershipId("3");
         membershipEntity3.setDescription("Free trial");
