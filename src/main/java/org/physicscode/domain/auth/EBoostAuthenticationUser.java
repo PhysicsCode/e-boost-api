@@ -2,6 +2,7 @@ package org.physicscode.domain.auth;
 
 import lombok.Data;
 import org.bson.types.ObjectId;
+import org.physicscode.constants.UserType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;

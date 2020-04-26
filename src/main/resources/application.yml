@@ -20,3 +20,5 @@ management:
         include: info,health,loggers
       path-mapping:
         health: /simple
+
+logging.level.reactor.netty.http.client.HttpClient: DEBUG

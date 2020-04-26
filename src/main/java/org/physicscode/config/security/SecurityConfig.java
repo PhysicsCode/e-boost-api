@@ -26,6 +26,7 @@ import static org.springframework.security.web.server.util.matcher.ServerWebExch
 
 @Configuration
 @EnableReactiveMethodSecurity
+@EnableWebFluxSecurity
 public class SecurityConfig {
 
     private final JWTAuthenticationWebFilter jwtAuthenticationWebFilter;
@@ -49,19 +50,20 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
 
         return http.securityMatcher(
-                pathMatchers("/profile")).authorizeExchange()
+                pathMatchers("/profile", "/profile/**")).authorizeExchange()
 
                 .pathMatchers("/swagger-ui.html").permitAll()
 
                 .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                //.pathMatchers(HttpMethod.POST,"/auth/login").permitAll()
-                //.pathMatchers(HttpMethod.POST,"/auth/register/**").permitAll()
 
-                .pathMatchers(HttpMethod.GET, "/profile/customer").hasRole("CUSTOMER")
-                .pathMatchers(HttpMethod.GET, "/profile/freelancer").hasRole("FREELANCER")
+                .pathMatchers("/profile/customer").hasRole("CUSTOMER")
+                .pathMatchers("/profile/freelancer", "/profile/freelancer/**").hasRole("FREELANCER")
                 .and()
-                .addFilterAfter(jwtAuthenticationWebFilter, SecurityWebFiltersOrder.CSRF)
-                .csrf().disable().build();
+                .addFilterAt(jwtAuthenticationWebFilter, SecurityWebFiltersOrder.FIRST)
+                .httpBasic().disable()
+                .formLogin().disable()
+                .csrf().disable()
+                .logout().disable().build();
     }
 
     @Bean
