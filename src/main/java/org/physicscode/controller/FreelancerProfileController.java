@@ -7,10 +7,8 @@ import io.swagger.annotations.Authorization;
 import lombok.RequiredArgsConstructor;
 import org.physicscode.constants.PicType;
 import org.physicscode.domain.auth.EBoostAuthenticationUser;
-import org.physicscode.dto.pojo.output.CustomerUserProfileDTO;
-import org.physicscode.dto.pojo.output.FreelancerUserProfileDTO;
-import org.physicscode.dto.pojo.output.GalleryDTO;
-import org.physicscode.dto.pojo.output.GalleryImageHolderDTO;
+import org.physicscode.dto.pojo.output.profile.FreelancerUserProfileDTO;
+import org.physicscode.dto.pojo.output.profile.GalleryDTO;
 import org.physicscode.dto.pojo.output.error.ErrorDTO;
 import org.physicscode.service.GalleryService;
 import org.physicscode.service.ProfileService;
@@ -24,7 +22,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "/profile")
+@RequestMapping(path = "/profile/freelancer")
 public class FreelancerProfileController {
 
     private final ProfileService profileService;
@@ -39,7 +37,7 @@ public class FreelancerProfileController {
             @ApiResponse(code = 400, response = ErrorDTO.class, message = "Client error"),
             @ApiResponse(code = 500, response = ErrorDTO.class, message = "Unexpected server side error")
     })
-    @GetMapping(path = "/freelancer", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<FreelancerUserProfileDTO>> retrieveUserProfileFreelance(@ApiIgnore @AuthenticationPrincipal EBoostAuthenticationUser eBoostAuthenticationUser) {
 
         return profileService.retrieveFreelancerProfile(eBoostAuthenticationUser.getUserId())
@@ -55,7 +53,7 @@ public class FreelancerProfileController {
             @ApiResponse(code = 400, response = ErrorDTO.class, message = "Client error"),
             @ApiResponse(code = 500, response = ErrorDTO.class, message = "Unexpected server side error")
     })
-    @PutMapping(path = "/freelancer", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<FreelancerUserProfileDTO>> editFreelancerProfile(@ApiIgnore  @AuthenticationPrincipal EBoostAuthenticationUser eBoostAuthenticationUser,
                                                                                 @RequestBody FreelancerUserProfileDTO freelancerUserProfileDTO) {
 
@@ -72,7 +70,7 @@ public class FreelancerProfileController {
             @ApiResponse(code = 400, response = ErrorDTO.class, message = "Client error"),
             @ApiResponse(code = 500, response = ErrorDTO.class, message = "Unexpected server side error")
     })
-    @PutMapping(path = "/freelancer/pic/{pic_type}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(path = "/pic/{pic_type}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Mono<ResponseEntity<FreelancerUserProfileDTO>> editFreelancerProfile(@ApiIgnore  @AuthenticationPrincipal EBoostAuthenticationUser eBoostAuthenticationUser,
                                                                                 @PathVariable("pic_type") String picType,
                                                                                 @RequestPart("image") Mono<FilePart> picture) {
@@ -90,7 +88,7 @@ public class FreelancerProfileController {
             @ApiResponse(code = 400, response = ErrorDTO.class, message = "Client error"),
             @ApiResponse(code = 500, response = ErrorDTO.class, message = "Unexpected server side error")
     })
-    @PostMapping(path = "/freelancer/gallery", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(path = "/gallery", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Mono<ResponseEntity<GalleryDTO>> addImagesToGallery(@ApiIgnore  @AuthenticationPrincipal EBoostAuthenticationUser eBoostAuthenticationUser,
                                                                                 @RequestPart("image") Mono<FilePart> picture) {
 
@@ -107,7 +105,7 @@ public class FreelancerProfileController {
             @ApiResponse(code = 400, response = ErrorDTO.class, message = "Client error"),
             @ApiResponse(code = 500, response = ErrorDTO.class, message = "Unexpected server side error")
     })
-    @GetMapping(path = "/freelancer/gallery", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/gallery", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<GalleryDTO>> retrieveGalleryImages(@ApiIgnore  @AuthenticationPrincipal EBoostAuthenticationUser eBoostAuthenticationUser) {
 
         return galleryService.retrieveGallery(eBoostAuthenticationUser.getUserId())

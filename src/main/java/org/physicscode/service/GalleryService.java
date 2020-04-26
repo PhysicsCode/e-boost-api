@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.physicscode.domain.entity.GalleryPictureHolder;
 import org.physicscode.domain.repository.FreelancerRepository;
 import org.physicscode.dto.mapper.GalleryMapper;
-import org.physicscode.dto.pojo.output.GalleryDTO;
+import org.physicscode.dto.pojo.output.profile.GalleryDTO;
 import org.physicscode.dto.pojo.provider.response.ImageBucketResponseDTO;
 import org.physicscode.exception.ErrorCode;
 import org.physicscode.exception.ServiceException;

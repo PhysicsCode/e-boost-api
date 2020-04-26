@@ -1,4 +1,4 @@
-package org.physicscode.dto.pojo.output;
+package org.physicscode.dto.pojo.output.profile;
 
 import lombok.Data;
 

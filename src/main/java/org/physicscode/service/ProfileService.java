@@ -1,24 +1,19 @@
 package org.physicscode.service;
 
-import io.micrometer.core.instrument.config.MeterFilter;
 import lombok.RequiredArgsConstructor;
 import org.physicscode.constants.PicType;
 import org.physicscode.domain.entity.FreelancerUser;
-import org.physicscode.domain.entity.GalleryPictureHolder;
 import org.physicscode.domain.entity.ImageHolder;
 import org.physicscode.domain.repository.CustomerRepository;
 import org.physicscode.domain.repository.FreelancerRepository;
-import org.physicscode.dto.mapper.GalleryMapper;
 import org.physicscode.dto.mapper.ProfileMapper;
-import org.physicscode.dto.pojo.output.CustomerUserProfileDTO;
-import org.physicscode.dto.pojo.output.FreelancerUserProfileDTO;
-import org.physicscode.dto.pojo.output.GalleryDTO;
+import org.physicscode.dto.pojo.output.profile.CustomerUserProfileDTO;
+import org.physicscode.dto.pojo.output.profile.FreelancerUserProfileDTO;
 import org.physicscode.dto.pojo.provider.response.ImageBucketResponseDTO;
 import org.physicscode.exception.ErrorCode;
 import org.physicscode.exception.ServiceException;
 import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;

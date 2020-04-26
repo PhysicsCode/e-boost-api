@@ -2,6 +2,7 @@ package org.physicscode.domain.entity;
 
 import lombok.Data;
 import org.bson.types.ObjectId;
+import org.physicscode.domain.entity.membership.MembershipEntity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -41,5 +42,7 @@ public class FreelancerUser {
     private List<Recommendation> recommendations = new ArrayList<>();
 
     private Gallery gallery = new Gallery();
+
+    private List<MembershipEntity> activeMemberships = new ArrayList<>();
 
 }

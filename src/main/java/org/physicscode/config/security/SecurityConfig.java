@@ -50,7 +50,7 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
 
         return http.securityMatcher(
-                pathMatchers("/profile", "/profile/**")).authorizeExchange()
+                pathMatchers("/profile", "/profile/**", "/membership", "/membership/**")).authorizeExchange()
 
                 .pathMatchers("/swagger-ui.html").permitAll()
 
@@ -58,6 +58,7 @@ public class SecurityConfig {
 
                 .pathMatchers("/profile/customer").hasRole("CUSTOMER")
                 .pathMatchers("/profile/freelancer", "/profile/freelancer/**").hasRole("FREELANCER")
+                .pathMatchers("/membership/freelancer").hasRole("FREELANCER")
                 .and()
                 .addFilterAt(jwtAuthenticationWebFilter, SecurityWebFiltersOrder.FIRST)
                 .httpBasic().disable()
