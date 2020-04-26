@@ -13,6 +13,7 @@ import org.physicscode.dto.pojo.output.error.ErrorDTO;
 import org.physicscode.service.ProfileService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -73,7 +74,7 @@ public class ProfileController {
     @PutMapping(path = "/freelancer/pic/{pic_type}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Mono<ResponseEntity<FreelancerUserProfileDTO>> editFreelancerProfile(@ApiIgnore  @AuthenticationPrincipal EBoostAuthenticationUser eBoostAuthenticationUser,
                                                                                 @PathVariable("pic_type") String picType,
-                                                                                @RequestParam("image") MultipartFile picture) {
+                                                                                @RequestPart("image") Mono<FilePart> picture) {
 
         return profileService.editProfileImage(eBoostAuthenticationUser.getUserId(), picture, PicType.reverseLookupPicType(picType))
                 .map(ResponseEntity::ok);

@@ -18,11 +18,14 @@ public class ImageBucketResponseDTO {
     private void unpackNameFromNestedObject(Map<String, Object> data) {
 
         deleteUrl = (String) data.get("delete_url");
-        Map<String,String> image = (Map<String,String>) data.get("image");
-        imageUrl = image.get("url");
+        imageUrl = (String) data.get("url");
+        /*Map<String,String> image = (Map<String,String>) data.get("image");
+
         Map<String,String> medium = (Map<String,String>) data.get("medium");
         mediumImageUrl = medium.get("url");
         Map<String,String> thumb = (Map<String,String>) data.get("thumb");
         thumbImageUrl = thumb.get("url");
+        *
+         */
     }
 }
